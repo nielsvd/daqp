@@ -82,11 +82,15 @@ target_include_directories(daqp PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}>
 )
+target_link_libraries(daqp PUBLIC "${CMAKE_C_STANDARD_LIBRARIES}" "m")
 
 set(CMAKE_C_STANDARD_LIBRARIES "${CMAKE_C_STANDARD_LIBRARIES}") # math for C api
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3 -Wall -Wextra")
 
 target_link_libraries(daqpstat daqp)
+
+# C tests
+add_subdirectory(test)
 
 # Install
 install(TARGETS daqpstat EXPORT  ${PROJECT_NAME}Config
